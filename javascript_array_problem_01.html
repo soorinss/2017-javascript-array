@@ -2,12 +2,34 @@
 <html>
 <head>
     <script type="text/javascript">
+        let p = 1;
         function calculate(arr) {
           var result = 0;
-          // TODO : 여기에 여러분이 직접 코딩을 해주세요.       
-          return result;
+          document.write(p+"번 문제 결과 : ");//보기 이쁘게 몇번 문제인지 써준다
+          p++;
+          for(i=1;i<arr.length;i=i+2)//중위연산자기 때문에 무조건 2,4,6,8번째 자리에 연산자가 온다는 것을 고려한 for문 조건이다.
+          {
+            if('+'==arr[i])
+            {
+              arr[i+1] = arr[i-1]+arr[i+1];//만약 +라면 전후배열 숫자를 더해서 다음 배열로 넘겨준다.
+            }
+            else if('-'==arr[i])
+            {
+              arr[i+1] = arr[i-1]-arr[i+1];//만약 -라면 전후배열 숫자를 빼서 다음 배열로 넘겨준다.
+            }
+            else if('*'==arr[i])
+            {
+              arr[i+1] = arr[i-1]*arr[i+1];//만약 *라면 전후배열 숫자를 곱해서 다음 배열로 넘겨준다.
+            }
+
+
+          }
+          document.write(arr[arr.length-1]+"<br>");//배열길이 -1을 하면 배열의 마지막 칸이 나온다. 그게 결과값이니 출력을 해준다.
+          result = arr[arr.length-1]; // 마지막 결과 값을 결과에 넣어준다.
+          return result; //리~턴
         }
 
+        calculate([5, '*', 5, '*', 10, '+', 100, '-', 300]);
         expect(calculate([1, '+', 2]), 3);
         expect(calculate([1, '-', 2]), -1);
         expect(calculate([1, '*', 2]), 2);

@@ -2,11 +2,25 @@
 <html>
 <head>
     <script type="text/javascript">
-        function check_string() {
-          // TODO : 여기에 여러분이 직접 코딩을 해주세요.          
-          return true;
-        }
+        let p = 1; //몇번 문제인지 체크하는 변수
+        function check_string(arg) {
+          document.write("<br>"+p+"번 문제 : "); //보기 이쁘게 몇번 문제인지 써준다
+          p++; //문제 적어줬으니 카운트로 올려준다
+          var count=0; //괄호열리고 닫는 갯수를 세주는 변수다
 
+          for(var i=0;i<arg.length;i++)
+          {
+            (arg.substring(i,i+1)=='(')?count++:count--; //특별히 삼항연산자로 계산! substring함수로 하나씩 잘라서 여는 괄호면 더하고 닫는 괄호면 뺀다.
+            document.write(arg.substring(i,i+1)); //substring함수가 잘되는지 확인하고 문제를 하나씩 적어준다
+            if(count<0){document.write("<br>error : 여는 괄호보다 닫는 괄호가 많이 입력되었습니다. 문제를 종료합니다.");//만약 count가 음수라면 여는것보다 닫는 것이 더 많이 입력되었으니 이때 false를 리턴해주고 break문으로 끝낸다.
+            break;}
+          }
+          document.write("<br>괄호 여는 갯수 - 괄호 닫는 갯수 : "+count+"<br>"); //계산을 어떻게 하는지 보여주고 카운트한 것을 표현해준다.
+          if(count>0){document.write("error : 여는 괄호가 더 많이 입력되었습니다.<br>");} //여는 괄호가 더 많이 입력된다면 적어준다
+          if(count<0){document.write("error : 닫는 괄호가 더 많이 입력되었습니다.<br>");} //닫는 괄호가 더 많이 입력된다면 적어준다.
+          if(count===0){return true;} //count가 0이라면 잘 열고 잘 닫혔으니 true를 리턴해준다.
+          else{return false;}//count가 0이 아니라면 false를 리턴해준다.
+        }
         expect(check_string('(())())'), false);
         expect(check_string('(((()())()'), false);
         expect(check_string('(()())((()))'), true);
